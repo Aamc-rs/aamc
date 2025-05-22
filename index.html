@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:url" content="https://aamc-rs.github.io/aamc/">
+    <meta name="monetag" content="6770a58260b347cdf486e74e05302802">
+    <title>অধ্যাপক আব্দুল মজিদ কলেজ</title>
+    <style>
+        /* === CSS কোড শুরু === */
+        body {
+            font-family: 'Arial', sans-serif; /* ডিফল্ট ফন্ট */
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* বাংলা ফন্টের জন্য নির্দিষ্ট ক্লাস (যদি প্রয়োজন হয়) */
+        .bangla-font {
+            font-family: 'SolaimanLipi', 'Siyam Rupali', Arial, sans-serif; /* বাংলা ফন্ট আগে রাখুন */
+        }
+
+
+        .container-fluid { /* For full-width header/footer */
+             width: 100%;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 15px 0;
+            border-bottom: 3px solid #003d82;
+            position: sticky; /* হেডার স্টিকি করা হলো */
+            top: 0;
+            z-index: 1000; /* অন্য কন্টেন্টের উপরে থাকবে */
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px; /* লোগোর উচ্চতা */
+            width: 50px;  /* বৃত্তাকার করার জন্য প্রস্থ ও উচ্চতা সমান */
+            border-radius: 50%; /* বৃত্তাকার আকৃতি */
+            object-fit: cover; /* ছবিকে বিকৃত না করে বৃত্ত ভরাট করবে */
+            vertical-align: middle;
+            border: 2px solid #fff; /* লোগোর চারপাশে একটি সাদা বর্ডার */
+        }
+
+        .logo-text {
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-left: 10px;
+            display: inline-block;
+            vertical-align: middle;
+            font-family: 'SolaimanLipi', 'Siyam Rupali', Arial, sans-serif; /* বাংলা ফন্ট */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            cursor: pointer; /* জাভাস্ক্রিপ্ট লিঙ্কের জন্য কার্সর */
+            font-family: 'SolaimanLipi', 'Siyam Rupali', Arial, sans-serif; /* বাংলা ফন্ট */
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            background-color: #003d82;
+        }
+
+        /* Main Content Area & Page Sections */
+        main {
+            padding-top: 20px; /* হেডারের জন্য কিছু স্পেস */
+        }
+
+        .page-section {
+            display: none; /* ডিফল্টভাবে সব সেকশন হাইড করা থাকবে */
+            padding: 20px 0;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .page-section.active {
+            display: block; /* সক্রিয় সেকশন দেখানো হবে */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-title {
+            color: #0056b3;
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            font-family: 'SolaimanLipi', 'Siyam Rupali', Arial, sans-serif; /* বাংলা ফন্ট */
+        }
+
+        .content-block {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            font-family: 'SolaimanLipi', 'Siyam Rupali', Arial, sans-serif; /* বাংলা ফন্ট */
+        }
+
+        .content-block h2 {
+            color: #004080;
+            margin-top: 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            font-size: 1.5em;
+            font-family: 'SolaimanLipi', 'Siyam Rupali', Arial, sans-serif; /* বাংলা ফন্ট */
+        }
+        .content-block p, .content-block ul, .content-block ol {
+            font-size: 1em;
+            color: #444;
+        }
+        .content-block ul, .content-block ol {
+            padding-left: 20px;
+        }
+        .content-block img.featured-image {
+            width:100%;
+            max-width:600px;
+            border-radius:8px;
+            margin-top:15px;
+            display:block;
+            margin-left:auto;
+            margin-right:auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+
+        /* Teachers and Toppers Card Styles */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-family: 'SolaimanLipi', 'Siyam Rupali', Arial, sans-serif; /* বাংলা ফন্ট */
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .card img.profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid #0056b3;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 1.3em;
+            color: #333;
+            font-family: 'SolaimanLipi', 'Siyam Rupali', Arial, sans-serif; /* বাংলা ফন্ট */
+        }
+
+        .card .designation, .card .achievement {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .card .qualification, .card .subject {
+            font-size: 0.85em;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        .card .email {
+            font-size: 0.85em;
+            color: #0056b3;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        .card .email:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #ccc;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+            font-family: 'SolaimanLipi', 'Siyam Rupali', Arial, sans-serif; /* বাংলা ফন্ট */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 850px) {
+            header .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .logo { text-align: center; margin-bottom:10px;}
+            .logo img { margin-bottom: 5px;}
+            .logo-text { margin-top: 5px; margin-left: 0; }
+            nav ul {
+                margin-top: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav ul li {
+                margin: 5px 8px;
+            }
+             nav ul li a { font-size: 0.9em; padding: 6px 10px; }
+            .page-title { font-size: 1.8em; }
+        }
+        @media (max-width: 480px) {
+            .logo img { height: 40px; width: 40px;}
+            .logo-text { font-size: 1.3em; }
+            .card img.profile-pic { width: 80px; height: 80px;}
+            .card h3 { font-size: 1.1em;}
+            .content-block { padding: 15px; }
+        }
+
+        /* Search Input Style */
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #teacherSearchInput {
+            padding: 10px 15px;
+            width: 80%;
+            max-width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            font-family: 'SolaimanLipi', 'Siyam Rupali', Arial, sans-serif; /* বাংলা ফন্ট */
+        }
+        #teacherSearchInput::placeholder {
+            color: #999;
+            font-family: 'SolaimanLipi', 'Siyam Rupali', Arial, sans-serif; /* বাংলা ফন্ট */
+        }
+    </style>
+     <!-- গুগল ফন্টস থেকে সোলাইমানলিপি অথবা আপনার পছন্দের বাংলা ফন্ট লিঙ্ক করুন -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* গুগল ফন্টস ব্যবহারের জন্য */
+        body, .bangla-font, .logo-text, nav ul li a, .page-title, .content-block, .card, footer p, #teacherSearchInput, #teacherSearchInput::placeholder {
+            font-family: 'Noto Sans Bengali', 'Hind Siliguri', 'SolaimanLipi', Arial, sans-serif !important;
+        }
+    </style>
+</head>
+<body>
+    <script type='text/javascript' src='//pl26617508.profitableratecpm.com/b7/11/1d/b7111d72afcb9c3b26ffc25251f491a8.js'></script>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://files.catbox.moe/l4zeh8.jpg" alt="কলেজের লোগো">
+                <span class="logo-text">অধ্যাপক আব্দুল মজিদ কলেজ</span>
+            </div>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home" data-section="home" class="nav-link active">হোম</a></li>
+                    <li><a href="#about" data-section="about" class="nav-link">আমাদের সম্পর্কে</a></li>
+                    <li><a href="#teachers" data-section="teachers" class="nav-link">শিক্ষকবৃন্দ</a></li>
+                    <li><a href="#toppers" data-section="toppers" class="nav-link">কৃতী শিক্ষার্থী</a></li>
+                    <li><a href="#admission" data-section="admission" class="nav-link">ভর্তি</a></li>
+                    <li><a href="#contact" data-section="contact" class="nav-link">যোগাযোগ</a></li>
+                    <li><a href="#developer" data-section="developer" class="nav-link">ডেভেলপার</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- হোম সেকশন -->
+        <section id="home" class="page-section active">
+            <h1 class="page-title">অধ্যাপক আব্দুল মজিদ কলেজে আপনাকে স্বাগতম</h1>
+            <div class="content-block">
+                <h2>কলেজের পরিচিতি</h2>
+                  <p>
+    অধ্যাপক আবদুল মজিদ কলেজ কুমিল্লা জেলার মুরাদনগর উপজেলার রামচন্দ্রপুর গ্রামে অবস্থিত একটি খ্যাতনামা শিক্ষাপ্রতিষ্ঠান। ১৯৯৫ সালে অধ্যক্ষ মো. আবদুল মজিদ কলেজটি প্রতিষ্ঠা করেন, যার মূল লক্ষ্য ছিল প্রত্যন্ত অঞ্চলের শিক্ষার্থীদের উচ্চশিক্ষার সুযোগ করে দেওয়া। প্রতিষ্ঠালগ্ন থেকেই কলেজটি শিক্ষার মান, নৈতিকতা ও শৃঙ্খলার ওপর বিশেষ গুরুত্ব দিয়ে আসছে।
+  </p>
+  <p>
+    বর্তমানে কলেজটি কুমিল্লা শিক্ষা বোর্ডের অধীনে পরিচালিত একটি এমপিওভুক্ত প্রতিষ্ঠান হিসেবে স্বীকৃত। এখানে বিজ্ঞান, মানবিক ও ব্যবসায় শিক্ষা বিভাগে পাঠদান করা হয়। প্রায় ২,০০০ শিক্ষার্থী অধ্যয়নরত এই প্রতিষ্ঠানে সুদক্ষ শিক্ষকবৃন্দ পাঠদান করছেন।
+  </p>
+  <p>
+    ক্যাম্পাসটি প্রায় ৪.৫ একর আয়তনের সবুজ ও মনোরম পরিবেশে গড়ে উঠেছে। পাঠ্য কার্যক্রমের পাশাপাশি সহ-শিক্ষা কার্যক্রম, ক্রীড়া ও সাংস্কৃতিক কর্মকাণ্ডে কলেজটি বিশেষভাবে সক্রিয়। প্রতি বছর এইচএসসি পরীক্ষায় শিক্ষার্থীরা কৃতিত্বের সঙ্গে উত্তীর্ণ হয়ে দেশ-বিদেশে উচ্চশিক্ষা ও কর্মক্ষেত্রে সাফল্য অর্জন করছে।
+  </p>
+  <p>
+    অধ্যাপক আবদুল মজিদ কলেজ শুধু একটি শিক্ষাপ্রতিষ্ঠান নয়, এটি মুরাদনগর অঞ্চলের আলোকবর্তিকা হিসেবে কাজ করে যাচ্ছে। শিক্ষার আলো ছড়িয়ে দিয়ে প্রতিষ্ঠানটি একটি আদর্শ সমাজ গঠনের লক্ষ্যে নিরলস প্রচেষ্টা চালিয়ে যাচ্ছে।
+  </p>
+                <img src="https://files.catbox.moe/pl630b.jpg" alt="কলেজ ক্যাম্পাস" class="featured-image">
+            </div>
+            <div class="content-block">
+                <h2>গুরুত্বপূর্ণ ঘোষণা</h2>
+                <ul>
+                    <li>বার্ষিক ক্রীড়া প্রতিযোগিতা আগামী ২০শে জুলাই অনুষ্ঠিত হবে।</li>
+                    <li>একাদশ শ্রেণীর ভর্তি কার্যক্রম ১লা আগস্ট থেকে শুরু।</li>
+                    <li>বিজ্ঞান মেলার জন্য প্রজেক্ট জমা দেওয়ার শেষ তারিখ ১৫ই আগস্ট।</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- আমাদের সম্পর্কে সেকশন -->
+        <section id="about" class="page-section">
+            <h1 class="page-title">আমাদের সম্পর্কে</h1>
+            <div class="content-block">
+                <h2>কলেজের ইতিহাস</h2>
+                  <p>
+    অধ্যাপক আবদুল মজিদ কলেজ প্রতিষ্ঠিত হয় ১৯৯৫ সালে কুমিল্লা জেলার মুরাদনগর উপজেলার রামচন্দ্রপুর গ্রামে। কলেজটির প্রতিষ্ঠাতা অধ্যক্ষ মো. আবদুল মজিদ ছিলেন একজন প্রগতিশীল শিক্ষানুরাগী, যিনি নিজ এলাকার মানুষকে উচ্চশিক্ষার সুযোগ করে দেওয়ার স্বপ্ন দেখতেন। সেই স্বপ্ন থেকেই গড়ে ওঠে এই শিক্ষাপ্রতিষ্ঠানটি।
+  </p>
+  <p>
+    প্রতিষ্ঠার শুরুর দিকে কলেজে শিক্ষার্থীর সংখ্যা ছিল কম, অবকাঠামো ছিল সীমিত, কিন্তু শিক্ষার মান ও আদর্শ ছিল উচ্চ। সময়ের সঙ্গে সঙ্গে কলেজটি শিক্ষাক্ষেত্রে এক অনন্য দৃষ্টান্ত স্থাপন করে। ১৯৯৭ সালে কলেজের শিক্ষার্থীরা প্রথম এইচএসসি পরীক্ষায় অংশগ্রহণ করে এবং একই বছরেই বোর্ড মেধাতালিকায় স্থান অর্জন করে সবাইকে চমকে দেয়। মাত্র ছয় বছরের মধ্যেই কলেজের ৮৬ জন শিক্ষার্থী কুমিল্লা শিক্ষা বোর্ডের মেধা তালিকায় জায়গা করে নেয়, যা ছিল একটি অসাধারণ অর্জন।
+  </p>
+  <p>
+    কলেজটি দিনে দিনে আধুনিকায়নের পথে অগ্রসর হয়—নতুন ভবন নির্মাণ, লাইব্রেরি ও বিজ্ঞানাগার প্রতিষ্ঠা, কম্পিউটার ল্যাব স্থাপন এবং দক্ষ শিক্ষক নিয়োগের মাধ্যমে এটি শিক্ষার গুণগত মান আরও উন্নত করে। বর্তমানে প্রায় ২,০০০ শিক্ষার্থী এখানে অধ্যয়নরত এবং কলেজটি তিনটি বিভাগ—বিজ্ঞান, মানবিক ও ব্যবসায় শিক্ষা—নিয়ে সুষ্ঠুভাবে পরিচালিত হচ্ছে।
+  </p>
+  <p>
+    ২০২৪ সালে কলেজটি রজতজয়ন্তী (২৫ বছর পূর্তি) উদ্‌যাপন করে, যেখানে প্রায় চার হাজার প্রাক্তন শিক্ষার্থী অংশগ্রহণ করে। এই আয়োজন কলেজটির দীর্ঘ পথচলার এক গর্বিত চিত্র তুলে ধরে।
+  </p>
+            </div>
+            <div class="content-block">
+                <h2>লক্ষ্য ও উদ্দেশ্য</h2>
+               <p>
+    অধ্যাপক আবদুল মজিদ কলেজের মূল লক্ষ্য হচ্ছে একটি জ্ঞানভিত্তিক, নৈতিকতাপূর্ণ ও আধুনিক সমাজ গঠনে সহায়ক হওয়া। এ প্রতিষ্ঠানের প্রতিষ্ঠাতা অধ্যক্ষ মো. আবদুল মজিদ এই প্রতিষ্ঠানকে কেবল একটি শিক্ষাকেন্দ্র নয়, বরং মানবিক মূল্যবোধসম্পন্ন, সৃজনশীল ও দেশপ্রেমিক নাগরিক তৈরির একটি প্ল্যাটফর্ম হিসেবে গড়ে তুলতে চেয়েছেন।
+  </p>
+  <h3>প্রধান লক্ষ্যসমূহ:</h3>
+  <ul>
+    <li>শিক্ষার্থীদের নৈতিকতা, শৃঙ্খলা ও মানবিক গুণাবলি অর্জনে সহায়তা করা</li>
+    <li>মানসম্মত ও আধুনিক শিক্ষা প্রদান করে উচ্চশিক্ষায় প্রবেশের সক্ষমতা তৈরি</li>
+    <li>প্রযুক্তি ও বিজ্ঞানভিত্তিক জ্ঞান অর্জনের পরিবেশ তৈরি</li>
+    <li>সহশিক্ষা কার্যক্রমের মাধ্যমে নেতৃত্ব ও সামাজিক দক্ষতা বৃদ্ধি</li>
+    <li>নারী ও প্রান্তিক জনগোষ্ঠীর শিক্ষায় অংশগ্রহণ নিশ্চিত করা</li>
+    <li>দেশপ্রেম, জাতীয় চেতনা ও সাংস্কৃতিক মূল্যবোধ বিকাশে ভূমিকা রাখা</li>
+  </ul>
+  <p>
+    এই লক্ষ্য ও উদ্দেশ্য অনুসরণ করে কলেজটি একটি আলোকিত ও শিক্ষিত সমাজ গঠনে অবদান রেখে চলেছে।
+  </p>
+            </div>
+            <div class="content-block">
+                <h2>অবকাঠামো ও সুযোগ-সুবিধা</h2>
+                <p>
+    অধ্যাপক আবদুল মজিদ কলেজ একটি সুপরিকল্পিত ও মনোরম ক্যাম্পাসে গড়ে উঠেছে, যেখানে শিক্ষার্থীদের মানসম্মত শিক্ষা গ্রহণের জন্য প্রয়োজনীয় সকল সুবিধা বিদ্যমান। কলেজটির অবকাঠামোগত এবং একাডেমিক সুবিধাসমূহ দিন দিন আধুনিকায়নের দিকে অগ্রসর হচ্ছে।
+  </p>
+  <h3>প্রধান অবকাঠামো ও সুবিধাসমূহ:</h3>
+  <ul>
+    <li><strong>একাডেমিক ভবন:</strong> কলেজে একাধিক দৃষ্টিনন্দন পাকা ভবন রয়েছে, যেখানে শ্রেণিকক্ষ, প্রশাসনিক কক্ষ ও শিক্ষক মিলনায়তন রয়েছে।</li>
+    <li><strong>বিজ্ঞানাগার:</strong> আধুনিক সরঞ্জামে সুসজ্জিত পদার্থবিজ্ঞান, রসায়ন ও জীববিজ্ঞান ল্যাব রয়েছে, যা শিক্ষার্থীদের ব্যবহারিক শিক্ষায় সহায়ক।</li>
+    <li><strong>কম্পিউটার ল্যাব:</strong> হালনাগাদ কম্পিউটার ও ইন্টারনেট সংযোগসহ একটি সজ্জিত ল্যাব রয়েছে, যা তথ্যপ্রযুক্তি শিক্ষার জন্য অপরিহার্য।</li>
+    <li><strong>গ্রন্থাগার:</strong> বিশাল সংগ্রহশালাসম্পন্ন একটি লাইব্রেরি রয়েছে যেখানে পাঠ্যবই, সহায়ক বই, সাময়িকী ও পত্রিকা পাওয়া যায়।</li>
+    <li><strong>খেলাধুলার মাঠ:</strong> একটি খোলামেলা খেলার মাঠ রয়েছে, যেখানে ফুটবল, ক্রিকেট, ভলিবলসহ বিভিন্ন খেলাধুলার আয়োজন করা হয়।</li>
+    <li><strong>সাংস্কৃতিক ও সহশিক্ষা কার্যক্রম:</strong> কলেজে বিতর্ক, আবৃত্তি, সাংস্কৃতিক অনুষ্ঠান ও জাতীয় দিবস পালন করা হয় নিয়মিতভাবে।</li>
+    <li><strong>স্বাস্থ্যসেবা ও বিশ্রামাগার:</strong> শিক্ষার্থীদের প্রাথমিক চিকিৎসা ও বিশ্রামের জন্য পৃথক কক্ষ রয়েছে।</li>
+    <li><strong>নিরাপত্তা ব্যবস্থা:</strong> ক্যাম্পাসে সার্বক্ষণিক নিরাপত্তা ব্যবস্থা ও সিসি ক্যামেরা দ্বারা নজরদারি করা হয়।</li>
+  </ul>
+  <p>
+    এই সমস্ত সুযোগ-সুবিধা শিক্ষার্থীদের জন্য একটি নিরাপদ, আধুনিক ও উৎসাহব্যঞ্জক শিক্ষার পরিবেশ নিশ্চিত করে, যা তাদের মানসিক ও বুদ্ধিবৃত্তিক বিকাশে সহায়ক ভূমিকা রাখে।
+  </p>
+            </div>
+        </section>
+
+        <!-- শিক্ষকবৃন্দ সেকশন -->
+        <section id="teachers" class="page-section">
+            <h1 class="page-title">আমাদের অভিজ্ঞ শিক্ষকবৃন্দ</h1>
+            <div class="search-container">
+                <input type="text" id="teacherSearchInput" placeholder="শিক্ষক খুঁজুন (নাম, বিষয়, পদবি অনুসারে)...">
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="অধ্যক্ষ" class="profile-pic">
+                    <h3>জনাব মো. ফেরদৌস আহমদ চৌধুরী</h3>
+                    <p class="designation">অধ্যক্ষ</p>
+                    <p class="subject"> অর্থনীতি</p>
+                    <p class="qualification">মোবাইল: ০১৭১৩৪২২০৪৬</p>
+                    <a href="mailto:facchowdhury1@gmail.com" class="email">facchowdhury1@gmail.com</a>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ২" class="profile-pic">
+                    <h3>জনাব মোহাম্মদ বিল্লাল হোসেন</h3>
+                    <p class="designation">সহকারী অধ্যাপক</p>
+                    <p class="subject"> ব্যবস্থাপনা</p>
+                    <p class="qualification">মোবাইল: ০১৪০১৪১০২৭৬</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৩" class="profile-pic">
+                    <h3>জনাব মুহা. মোস্তফা কামাল</h3>
+                    <p class="designation">সহকারী অধ্যাপক</p>
+                    <p class="subject">হিসাববিজ্ঞান</p>
+                    <p class="qualification">মোবাইল: ০১৮২৫০০৫৯০০</p>
+                </div>
+                 <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৪" class="profile-pic">
+                    <h3>জনাব ভীম চন্দ্র সানা</h3>
+                    <p class="designation">সহকারী অধ্যাপক</p>
+                    <p class="subject">পদার্থবিজ্ঞান</p>
+                    <p class="qualification">মোবাইল: ০১৭১৬৩০৭৭০৫</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৫" class="profile-pic">
+                    <h3>জনাব মো. আব্দুল ওয়াদুদ সরকার</h3>
+                    <p class="designation">সহকারী অধ্যাপক</p>
+                    <p class="subject">পোরনীতি ও সুশাসন</p>
+                    <p class="qualification">মোবাইল: ০১৮১৮৯০৬৬৫৭</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৬" class="profile-pic">
+                    <h3>জনাব মো. আমিরুল ইসলাম মীর</h3>
+                    <p class="designation">জ্যেষ্ঠ প্রভাষক</p>
+                    <p class="subject">ইসলাম</p>
+                    <p class="qualification">মোবাইল: ০১৩০১৬০০৮৬৬</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৭" class="profile-pic">
+                    <h3>জনাব জিন্নাত-ই-পারভীন</h3>
+                    <p class="designation">জ্যেষ্ঠ প্রভাষক</p>
+                    <p class="subject">জীববিজ্ঞান</p>
+                    <p class="qualification">মোবাইল: ০১৭১১৭৩১০২৭</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষিকা ৮" class="profile-pic">
+                    <h3>জনাব মো. মিজানুর রহমান</h3>
+                    <p class="designation">জ্যেষ্ঠ প্রভাষক</p>
+                    <p class="subject">যুক্তিবিদ্যা</p>
+                    <p class="qualification">মোবাইল: ০১৭৪৯৩৫০৪৩০</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৯" class="profile-pic">
+                    <h3>জনাব মো. মোতাহের হোসেন</h3>
+                    <p class="designation">জ্যেষ্ঠ প্রভাষক</p>
+                    <p class="subject">উচ্চতর গণিত</p>
+                    <p class="qualification">মোবাইল: ০১৭১২২৪৬৮৩৮</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ১০" class="profile-pic">
+                    <h3>জনাব রঞ্জিত কুমার দেবনাথ</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">হিসাববিজ্ঞান</p>
+                    <p class="qualification">মোবাইল: ০১৭১৫৭৮৪০৭১</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ১১" class="profile-pic">
+                    <h3>জনাব শেখ মশিউর রহমান</h3>
+                    <p class="designation">জ্যেষ্ঠ প্রভাষক</p>
+                    <p class="subject">বাংলা</p>
+                    <p class="qualification">মোবাইল: ০১৭১১৯৫৮৪৩৯</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ১২" class="profile-pic">
+                    <h3>জনাব মোসাম্মৎ তাহমিনা আক্তার</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">সমাজকর্ম</p>
+                    <p class="qualification">মোবাইল: ০১৮১৮৮৩৪৯৫৬</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ১৩" class="profile-pic">
+                    <h3>জনাব এ. কে. এম. সাইফুল কবির</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">পরিসংখ্যান</p>
+                    <p class="qualification">মোবাইল:০১৯২১০২১৪৮৮</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ১৪" class="profile-pic">
+                    <h3>জনাব মো. সাইদুল্যাহ</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">ফিন্যান্স, ব্যাংকিং ও বিমা</p>
+                    <p class="qualification">মোবাইল:০১৯১৬৫৭০০১০</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ১৫" class="profile-pic">
+                    <h3>জনাব আব্দুল্লাহ-আল-মামুন</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">অর্থনীতি</p>
+                    <p class="qualification">মোবাইল:০১৭১৭৬০৯৩২৪</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ১৬" class="profile-pic">
+                    <h3>জনাব শারমিন সুলতানা</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">আইসিটি</p>
+                    <p class="qualification">মোবাইল:০১৭৬৩১৩৬৬২০</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ১৭" class="profile-pic">
+                    <h3>জনাব মোহাম্মদ রাকিব হাসান</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">ইংরেজি</p>
+                    <p class="qualification">মোবাইল:০১৯২৪৭৫৯৭৪০</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ১৮" class="profile-pic">
+                    <h3>জনাব সাজ্জাদ হোসাইন</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">রসায়ন</p>
+                    <p class="qualification">মোবাইল:০১৮১৩৭৭৩৭১৮</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ১৯" class="profile-pic">
+                    <h3>জনাব মোহাম্মদ উল্লাহ হাছান</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">ইসলামের ইতিহাস ও সংস্কৃতি</p>
+                    <p class="qualification">মোবাইল:০১৭৩৪৭১৬০৯২</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ২০" class="profile-pic">
+                    <h3>জনাব মোহাম্মদ শাহ আলম</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">বাংলা</p>
+                    <p class="qualification">মোবাইল:০১৮১৮৯৩৩০৩৪</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ২১" class="profile-pic">
+                    <h3>জনাব মোসা. জেসমিন আক্তার</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">সমাজকর্ম</p>
+                    <p class="qualification">মোবাইল:০১৭৭৫৭৩৩২৬৮</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ২২" class="profile-pic">
+                    <h3>জনাব মো. হাবিবুর রহমান</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">পদার্থবিজ্ঞান</p>
+                    <p class="qualification">মোবাইল:০১৬৩২১১২০১১</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ২৩" class="profile-pic">
+                    <h3>জনাব মো. নিজাম উদ্দিন</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">রসায়ন</p>
+                    <p class="qualification">মোবাইল:০১৭৩৩৮৩৭৮৬১</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ২৪" class="profile-pic">
+                    <h3>জনাব মো. মনিরুজ্জামান</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">আইসিটি</p>
+                    <p class="qualification">মোবাইল:০১৭৪৬৬৫১৬২৬</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ২৫" class="profile-pic">
+                    <h3>জনাব মো. আরব আলী</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">উচ্চতর গণিত</p>
+                    <p class="qualification">মোবাইল:০১৭২৩৮৩৭০০৭</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ২৬" class="profile-pic">
+                    <h3>জনাব মো. মাহফুজুর রহমান</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">বাংলা</p>
+                    <p class="qualification">মোবাইল:০১৯২৬৩০৬০৭৭</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ২৭" class="profile-pic">
+                    <h3>জনাব মোসা, তানিয়া আক্তার</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">পৌরনীতি ও সুশাসন</p>
+                    <p class="qualification">মোবাইল:০১৬২১০৭০৭৬০</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ২৮" class="profile-pic">
+                    <h3>জনাব মো. রফিকুল ইসলাম</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">যুক্তিবিদ্যা</p>
+                    <p class="qualification">মোবাইল:০১৮২০৮৬৬২৯৮</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ২৯" class="profile-pic">
+                    <h3>জনাব মাহমুদা আক্তার সুমি</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">বাংলা</p>
+                    <p class="qualification">মোবাইল:০১৬৩১৬৪৬৬৭৫</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৩০" class="profile-pic">
+                    <h3>জনাব মো. মঈন উদ্দিন জনি</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">বাংলা</p>
+                    <p class="qualification">মোবাইল:০১৮২৭০৩০৪৪৪</p>
+                </div>
+                 <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৩১" class="profile-pic">
+                    <h3>জনাব মো. সাইফুল ইসলাম</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">ইংরেজি</p>
+                    <p class="qualification">মোবাইল:০১৩১০৭৫৮৬১২</p>
+                 </div>
+                 <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৩২" class="profile-pic">
+                    <h3>জনাব আফসানা চৌধুরী</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">ইংরেজি</p>
+                    <p class="qualification">মোবাইল:০১৭০৬৫৭৯৫০৯</p>
+                 </div>
+                 <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৩৩" class="profile-pic">
+                    <h3>জনাব মো. আল নূর হুদা</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">ইংরেজি</p>
+                    <p class="qualification">মোবাইল:০১৯১৫০৩২৯৫৪</p>
+                 </div>
+                 <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৩৪" class="profile-pic">
+                    <h3>জনাব শাহনাজ লিমা</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">ব্যবস্থাপনা</p>
+                    <p class="qualification">মোবাইল:০১৬০২২১১১৭১</p>
+                 </div>
+                 <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৩৫" class="profile-pic">
+                    <h3>মো. জয়নাল আবেদীন সাব্বির</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">হিসাববিজ্ঞান</p>
+                    <p class="qualification">মোবাইল:০১৮৪৬৭৬৬৫১৪</p>
+                 </div>
+                 <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৩৬" class="profile-pic">
+                    <h3>জনাব প্রিয়াংকা আলম</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">আইসিটি</p>
+                    <p class="qualification">মোবাইল:০১৬২৮১৯৯৯১৫</p>
+                 </div>
+                  <div class="card">
+                     <img src="https://files.catbox.moe/l4zeh8.jpg" alt="শিক্ষক ৩৭" class="profile-pic">
+                    <h3>জনাব সালাহ উদ্দিন আল মামুন</h3>
+                    <p class="designation">প্রভাষক</p>
+                    <p class="subject">ইংরেজি</p>
+                    <p class="qualification">মোবাইল:০১৭৬২৭৯০৫৯০</p>
+                 </div>
+            </div>
+        </section>
+
+        <!-- কৃতী শিক্ষার্থী সেকশন -->
+        <section id="toppers" class="page-section">
+            <h1 class="page-title">আমাদের কৃতী শিক্ষার্থীবৃন্দ</h1>
+            <div class="card-grid">
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="কৃতী শিক্ষার্থী ১" class="profile-pic">
+                    <h3>মো. রিয়াদুল ইসলাম</h3>
+                    <p class="achievement">এইচএসসি পরীক্ষা - ২০২০</p>
+                    <p class="subject">ঢাকা বিশ্ববিদ্যালয়ে গণিত বিভাগে অধ্যয়নরত</p>
+                    <p class="qualification">কলেজ জীবনে জাতীয় বিজ্ঞান অলিম্পিয়াডে উপজেলা পর্যায়ে ১ম স্থান অধিকার।</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="কৃতী শিক্ষার্থী ২" class="profile-pic">
+                    <h3>সাবরিনা হোসাইন</h3>
+                    <p class="achievement">এইচএসসি পরীক্ষা - ২০১৯</p>
+                    <p class="subject">কুমিল্লা মেডিকেল কলেজে এমবিবিএস অধ্যয়নরত।</p>
+                    <p class="qualification">বোর্ড পরীক্ষায় জিপিএ-৫ পেয়ে কৃতিত্বের স্বাক্ষর রাখে।</p>
+                </div>
+                <div class="card">
+                    <img src="https://files.catbox.moe/l4zeh8.jpg" alt="কৃতী শিক্ষার্থী ৩" class="profile-pic">
+                    <h3>মোহাম্মদ শিহাব উদ্দিন</h3>
+                    <p class="achievement">এইচএসসি ২০১৯</p>
+                    <p class="subject">বাংলাদেশ প্রকৌশল বিশ্ববিদ্যালয় (BUET)-এ ইইই বিভাগে পড়াশোনা করছে।</p>
+                    <p class="qualification">কলেজের বিজ্ঞান ক্লাবের সাবেক সভাপতি।</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ভর্তি সেকশন -->
+        <section id="admission" class="page-section">
+            <h1 class="page-title">ভর্তি তথ্য</h1>
+            <div class="content-block">
+                <h2>ভর্তির নিয়মাবলী</h2>
+                <p>একাদশ শ্রেণীতে ভর্তির জন্য মাধ্যমিক ও উচ্চমাধ্যমিক শিক্ষাবোর্ডের নীতিমালা অনুসরণ করা হয়। আবেদনকারীদের এসএসসি বা সমমানের পরীক্ষায় উত্তীর্ণ হতে হবে।</p>
+                <p>ভর্তির জন্য আবেদন অনলাইনে নির্দিষ্ট সময়ের মধ্যে সম্পন্ন করতে হবে। বিস্তারিত তথ্যের জন্য কলেজের নোটিশ বোর্ড অথবা ওয়েবসাইটে চোখ রাখুন।</p>
+                <h3>প্রয়োজনীয় কাগজপত্র:</h3>
+                <ul>
+                    <li>এসএসসি পরীক্ষার মার্কশীটের সত্যায়িত ফটোকপি।</li>
+                    <li>এসএসসি পরীক্ষার প্রশংসাপত্রের সত্যায়িত ফটোকপি।</li>
+                    <li>২ কপি পাসপোর্ট সাইজের ছবি।</li>
+                    <li>জন্ম নিবন্ধনের সত্যায়িত ফটোকপি।</li>
+                </ul>
+            </div>
+            <div class="content-block">
+                <h2>আবেদনের সময়সীমা ও প্রক্রিয়া</h2>
+                <p>সাধারণত এসএসসি পরীক্ষার ফল প্রকাশের পর ভর্তি বিজ্ঞপ্তি প্রকাশ করা হয়। আবেদন প্রক্রিয়া সম্পূর্ণ অনলাইন-ভিত্তিক।</p>
+                <p>গুরুত্বপূর্ণ তারিখসমূহ:</p>
+                <ul>
+                    <li><strong>আবেদন শুরু:</strong> মে ২০২৫-এর শেষ সপ্তাহ (সম্ভাব্য)</li>
+                    <li><strong>আবেদনের শেষ তারিখ:</strong> জুন ২০২৫-এর মাঝামাঝি</li>
+                    <li><strong>ভর্তি সম্পন্ন:</strong> জুলাই ২০২৫-এর প্রথম সপ্তাহ</li>
+                </ul>
+                <p><em>উল্লেখ্য: এই সময়সীমা পূর্ববর্তী বছরের ভিত্তিতে অনুমান করা হয়েছে। কলেজের অফিসিয়াল নোটিশ অনুযায়ী সময়সূচি পরিবর্তন হতে পারে।</em></p>
+
+                <h3>ভর্তি প্রক্রিয়া:</h3>
+                  <ol>
+                    <li>কলেজ অফিস থেকে ভর্তি ফরম সংগ্রহ ও জমা।</li>
+                    <li>প্রয়োজনীয় কাগজপত্র:
+                      <ul>
+                        <li>এসএসসি/সমমান সনদ ও নম্বরপত্র (সত্যায়িত কপি)</li>
+                        <li>৪ কপি পাসপোর্ট সাইজ রঙিন ছবি</li>
+                        <li>জন্মনিবন্ধন / জাতীয় পরিচয়পত্রের কপি</li>
+                      </ul>
+                    </li>
+                    <li>নির্ধারিত ভর্তি ফি জমা।</li>
+                    <li>ভর্তি নিশ্চিতকরণ ও কনফার্মেশন স্লিপ সংগ্রহ।</li>
+                  </ol>
+
+                <h3>যোগাযোগ:</h3>
+                  <p><strong>ঠিকানা:</strong> রামচন্দ্রপুর, মুরাদনগর, কুমিল্লা-৩৫৪১, বাংলাদেশ</p>
+                  <p><strong>মোবাইল:</strong> 01713-422046</p>
+                  <p><strong>ইমেইল:</strong> facchowdhury1@gmail.com</p>
+                  <p><strong>ফেসবুক পেজ:</strong> <a href="https://www.facebook.com/AdhyapakAbdulMajidCollege0" target="_blank">অধ্যাপক আব্দুল মজিদ কলেজ</a></p>
+            </div>
+        </section>
+
+        <!-- যোগাযোগ সেকশন -->
+        <section id="contact" class="page-section">
+            <h1 class="page-title">যোগাযোগ</h1>
+            <div class="content-block">
+                <h2>আমাদের ঠিকানা</h2>
+                <p>রামচন্দ্রপুর, মুরাদনগর উপজেলা, কুমিল্লা-৩৫৪১, বাংলাদেশ</p>
+                <h3>যোগাযোগের নম্বর:</h3>
+                <p>অধ্যক্ষ: +৮৮০১৭১৩-৪২২০৪৬</p>
+                <p>অফিস: +৮৮০১৭৬০-৩৫৫৮৯৬</p>
+                <h3>ইমেইল:</h3>
+                <p>অধ্যক্ষ: facchowdhury1@gmail.com</p>
+                <p>অফিস: adhyapakabdulmajidcollege@gmail.com</p>
+            </div>
+            <div class="content-block">
+                <h2>মানচিত্রে আমাদের অবস্থান</h2>
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.8722347211595!2d90.88315651536572!3d23.717772784603846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3754410025af9801%3A0x456896258525ebf4!2sAdhyapak%20Abdul%20Mazid%20College%20%5BAAMC%5D!5e0!3m2!1sen!2sbd!4v1716283509362!5m2!1sen!2sbd" 
+                  width="100%" 
+                  height="450" 
+                  style="border:0; border-radius: 8px;" 
+                  allowfullscreen="" 
+                  loading="lazy" 
+                  referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </section>
+
+        <!-- ডেভেলপার সেকশন -->
+        <section id="developer" class="page-section">
+            <h1 class="page-title">ডেভেলপার পরিচিতি</h1>
+            <div class="content-block">
+                <div class="card-grid" style="grid-template-columns: 1fr; max-width: 400px; margin: 20px auto;"> 
+                    <div class="card">
+                        <img src="https://files.catbox.moe/cn3xfx.jpg" alt="ডেভেলপার" class="profile-pic" style="border-color: #28a745;">
+                        <h3> RS亗RIAN</h3>
+                        <p><strong>নাম:</strong> ⏤‌‌ রিয়ান আহমেদ ভূঁইয়া</p>
+                        <p><strong>ডাকনাম:</strong> রিয়ান</p>
+                        <p><strong>শহর:</strong> কুমিল্লা</p>
+                        <p><strong>দেশ:</strong> বাংলাদেশ</p>
+                        <p><strong>জন্মদিন:</strong> ১৫ ডিসেম্বর</p>
+
+                        <h3>আমি যে ভাষা জানি</h3>
+                        <ul>
+                            <li>বাংলা</li>
+                            <li>হিন্দি</li>
+                            <li>ইংরেজি</li>
+                        </ul>
+
+                        <h3>আমার শখ</h3>
+                        <ul>
+                            <li>হ্যাকিং</li>
+                            <li>মডিং</li>
+                            <li>গেমিং</li>
+                            <li>ওয়েব ডেভেলপিং</li>
+                        </ul>
+
+                        <p>আমার কোন বিশেষ প্রতিভা নেই। আমি সবসময় মানুষকে সাহায্য করি। যেকোনো সমস্যার জন্য তুমি আমাকে ফোন করতে পারো। আমি আমার সেরাটা দেব।</p>
+                        <hr>
+                        <p><strong>তোমার জীবন উপভোগ করো</strong></p>
+                        <p>
+                            আমি  অধ্যাপক আব্দুল মজিদ কলেজের একজন  শিক্ষার্থী এবং একজন উদ্যমী ওয়েব ডেভেলপার। শুরু থেকেই প্রযুক্তির প্রতি গভীর আগ্রহ নিয়ে আমি HTML, CSS, JavaScript, এবং বিভিন্ন ফ্রেমওয়ার্ক ব্যবহার করে আধুনিক, রেসপন্সিভ ওয়েবসাইট তৈরি করে যাচ্ছি।
+                        </p>
+                        <p>
+                            ওয়েব ডেভেলপমেন্ট  আমার পেশা নয়, এটি আমার ভালোবাসা। আমি বিশ্বাস করি, ডিজিটাল বাংলাদেশের ভবিষ্যৎ গড়ার পথে একজন দক্ষ ডেভেলপার হিসেবে আমার একটি ভূমিকা আছে। আমার লক্ষ্য হলো — ব্যবহারকারী-বান্ধব ডিজাইন ও ক্লিন কোডিংয়ের মাধ্যমে নতুন কিছু তৈরি করা এবং প্রতিনিয়ত নিজেকে আরও দক্ষ করে তোলা।
+                        </p>
+                        <a href="mailto:24rr.rian@gmail.com" class="email">24rr.rian@gmail.com</a>
+                        <p style="margin-top: 15px;">
+                            <a href="https://www.facebook.com/24rr.rian" target="_blank" style="margin-right: 10px; text-decoration:none; color: #0056b3; font-weight: bold;">ফেসবুক</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container-fluid">
+            <p>© ২০২৪ RS亗RIAN। সর্বস্বত্ব সংরক্ষিত। ডিজাইন ও ডেভেলপমেন্ট: RS RIAN </p>
+        </div>
+    </footer>
+
+    <script>
+        // === JavaScript কোড শুরু ===
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageSections = document.querySelectorAll('.page-section');
+            const mainNav = document.getElementById('mainNav');
+
+            function showSection(sectionId) {
+                pageSections.forEach(section => {
+                    if (section.id === sectionId) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    if (link.dataset.section === sectionId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+                // সেকশন পরিবর্তন হলে পৃষ্ঠার শুরুতে স্ক্রল করা
+                window.scrollTo(0, 0);
+            }
+
+            // নেভিগেশন লিঙ্কে ক্লিক ইভেন্ট
+            mainNav.addEventListener('click', function(event) {
+                if (event.target.matches('.nav-link')) {
+                    event.preventDefault(); // ডিফল্ট লিঙ্ক আচরণ বন্ধ করা
+                    const sectionId = event.target.dataset.section;
+                    showSection(sectionId);
+                    // URL হ্যাশ পরিবর্তন (ঐচ্ছিক, বুকমার্কিং এর জন্য)
+                    if (history.pushState) {
+                        history.pushState(null, null, '#' + sectionId);
+                    } else {
+                        window.location.hash = sectionId;
+                    }
+                }
+            });
+
+            // পেজ লোডের সময় URL হ্যাশ চেক করে নির্দিষ্ট সেকশন দেখানো
+            function handleInitialLoad() {
+                const hash = window.location.hash.substring(1); // # চিহ্ন বাদ দেওয়া
+                if (hash) {
+                    const sectionExists = document.getElementById(hash);
+                    if(sectionExists && sectionExists.classList.contains('page-section')) {
+                         showSection(hash);
+                    } else {
+                        showSection('home'); // যদি হ্যাশ না থাকে বা ভুল হ্যাশ থাকে
+                    }
+                } else {
+                    showSection('home'); // ডিফল্টভাবে হোম সেকশন দেখানো
+                }
+            }
+            
+            handleInitialLoad();
+
+            // ব্রাউজারের ব্যাক/ফরোয়ার্ড বাটনের জন্য হ্যাশ পরিবর্তন হ্যান্ডেল করা
+            window.addEventListener('hashchange', handleInitialLoad);
+
+            // শিক্ষক খোঁজার জন্য JavaScript
+            const teacherSearchInput = document.getElementById('teacherSearchInput');
+            const teacherCards = document.querySelectorAll('#teachers .card-grid .card'); // আরো নির্দিষ্টভাবে কার্ডগুলো নির্বাচন করা
+
+            if (teacherSearchInput && teacherCards.length > 0) {
+                teacherSearchInput.addEventListener('input', function() { // 'keyup' এর পরিবর্তে 'input' ব্যবহার করা হলো, যা পেস্ট করার ক্ষেত্রেও কাজ করবে
+                    const searchTerm = teacherSearchInput.value.toLowerCase().trim();
+
+                    teacherCards.forEach(card => {
+                        const teacherNameElement = card.querySelector('h3');
+                        const teacherSubjectElement = card.querySelector('.subject');
+                        const teacherDesignationElement = card.querySelector('.designation');
+
+                        let textToSearch = '';
+                        if (teacherNameElement) textToSearch += teacherNameElement.textContent.toLowerCase() + ' ';
+                        if (teacherSubjectElement) textToSearch += teacherSubjectElement.textContent.toLowerCase() + ' ';
+                        if (teacherDesignationElement) textToSearch += teacherDesignationElement.textContent.toLowerCase();
+                        
+                        // মোবাইল নম্বরও সার্চের আওতায় আনা হলো (যদি থাকে)
+                        const teacherQualificationElement = card.querySelector('.qualification');
+                        if(teacherQualificationElement && teacherQualificationElement.textContent.toLowerCase().includes('মোবাইল')) {
+                            textToSearch += teacherQualificationElement.textContent.toLowerCase() + ' ';
+                        }
+
+                        if (textToSearch.includes(searchTerm)) {
+                            card.style.display = ''; 
+                        } else {
+                            card.style.display = 'none'; 
+                        }
+                    });
+                });
+            }
+
+        });
+        // === JavaScript কোড শেষ ===
+    </script>
+</body>
+</html>
